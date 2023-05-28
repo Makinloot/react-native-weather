@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import { useState } from "react";
 import { useFetch } from "./useFetch/useFetch";
 import { APP_ENV_API_KEY } from '@env'
+import Hourly from "./components/Hourly";
 
 export default function App() {
   const [latlon, setLatlon] = useState("paris");
@@ -26,7 +27,7 @@ export default function App() {
     if(data.length !== 0){
 
       const { location, current, forecast } = data;
-      
+
       return (
         <SafeAreaView style={styles.container}>
           <Header
@@ -36,6 +37,7 @@ export default function App() {
             maxTemp={Math.round(forecast.forecastday[0].day.maxtemp_c)}
             condition={current.condition.text}
           />
+          <Hourly data={forecast.forecastday[0].hour} />
         </SafeAreaView>
       );
     }
