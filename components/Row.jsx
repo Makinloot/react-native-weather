@@ -7,7 +7,7 @@ const Row = ({ hour, degree, image }) => {
       <Text style={styles.text}>{hour.split(" ")[1].split(":")[0]}</Text>
       <Image source={{ uri: `https:${image}` }} style={styles.image} />
       <View style={styles.degreeContainer}>
-        <Text style={styles.text}>{Math.round(degree)}</Text>
+        <Text style={styles.text}>{Math.floor(degree)}</Text>
         <Text style={[styles.text, styles.degreeContainer.degree]}>&deg;</Text>
       </View>
     </View>
