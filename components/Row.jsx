@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "bold",
+    color: 'white'
   },
   image: {
     marginVertical: 10,

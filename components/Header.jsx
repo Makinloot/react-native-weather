@@ -38,12 +38,14 @@ const styles = StyleSheet.create({
   textLocation: {
     fontSize: 24,
     textTransform: "capitalize",
+    color: 'white'
   },
   degreeContainer: {
     position: "relative",
     text: {
       fontSize: 64,
       fontWeight: "300",
+      color: 'white'
     },
     degree: {
       position: "absolute",
@@ -55,16 +57,19 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
     fontWeight: "bold",
     fontSize: 16,
+    color: 'white'
   },
   tempRange: {
     flexDirection: "row",
     gap: 10,
     text: {
       fontWeight: "bold",
+      color: 'white'
     },
     degree: {
       position: "absolute",
       right: -5,
+      color: 'white'
     },
   },
 });

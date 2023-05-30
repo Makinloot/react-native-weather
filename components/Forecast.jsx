@@ -12,7 +12,7 @@ const Forecast = ({ data }) => {
     <View style={styles.container}>
       {data.map((item, i) => {
         return (
-          <View style={styles.row}>
+          <View style={styles.row} key={i}>
             <Text style={styles.dayText}>{handleWeekDay(i).split(",")[0]}</Text>
             <Image
               source={{
@@ -43,14 +43,18 @@ const Forecast = ({ data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: '#130f0f80',
+    borderRadius: 10,
   },
   dayText: {
+    flex: .4,
     fontSize: 16,
     fontWeight: "bold",
     textTransform: "capitalize",
-    minWidth: 80,
-    maxWidth: 100,
+    color: 'white'
   },
   row: {
     flexDirection: "row",
@@ -58,20 +62,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
+    flex: .12,
     width: 44,
     height: 44,
   },
   tempRange: {
+    flex: .4,
+    marginRight: 5,
     flexDirection: "row",
+    justifyContent: "flex-end",
     gap: 10,
-    minWidth: 80,
-    maxWidth: 100,
     text: {
       fontWeight: "bold",
+      color: 'white'
     },
     degree: {
       position: "absolute",
-      right: -5,
+      right: -6,
+      top: -2,
+      color: 'white'
     },
   },
 });

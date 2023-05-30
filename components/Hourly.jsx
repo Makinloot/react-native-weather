@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 20,
+    marginHorizontal: 10,
+    backgroundColor: '#130f0f80',
+    borderRadius: 10,
+    paddingVertical: 10,
   },
 });
 
