@@ -6,17 +6,20 @@ import {
   View,
   StatusBar,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import Header from "./components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "./useFetch/useFetch";
 import { APP_ENV_API_KEY } from "@env";
 import Hourly from "./components/Hourly";
 import Forecast from "./components/Forecast";
-import Card from "./components/Card";
+import Other from "./components/Other";
+
+import background from "./background";
 
 export default function App() {
-  const [latlon, setLatlon] = useState("washington");
+  const [latlon, setLatlon] = useState("tbilisi");
 
   if (latlon) {
     const url = `https://api.weatherapi.com/v1/forecast.json?key=${APP_ENV_API_KEY}&q=${latlon}&days=3&aqi=yes`;
@@ -24,13 +27,11 @@ export default function App() {
 
     if (data.length !== 0) {
       const { location, current, forecast } = data;
-      // console.log(current, forecast)
+      const iconId = data.current.condition.icon.split("/")[6].split(".")[0];
+      const dayTime = data.current.condition.icon.split("/")[5];
+
       return (
-        <ScrollView 
-          showsVerticalScrollIndicator={false}
-          contentInsetAdjustmentBehavior="automatic"
-          style={{backgroundColor: 'grey'}}
-        >
+        <ImageBackground source={background(iconId, dayTime)} style={styles.bg}>
           <SafeAreaView style={styles.container}>
             <Header
               name={location.name}
@@ -39,33 +40,16 @@ export default function App() {
               maxTemp={Math.round(forecast.forecastday[0].day.maxtemp_c)}
               condition={current.condition.text}
             />
-            <Hourly data={forecast.forecastday[0].hour} />
-            <Forecast data={forecast.forecastday} />
-            <View style={styles.containerDetails}>
-              {current.is_day ? (
-                <Card
-                  icon="moon"
-                  title="sunset"
-                  primary={forecast.forecastday[0].astro.sunset}
-                  secondary={`Sunrise: ${forecast.forecastday[0].astro.sunrise}`}
-                />
-              ) : (
-                <Card
-                  icon="sun"
-                  title="sunrise"
-                  primary={forecast.forecastday[0].astro.sunrise}
-                  secondary={`Sunset: ${forecast.forecastday[0].astro.sunset}`}
-                />
-              )}
-              <Card
-                icon="thermometer"
-                title="feels like"
-                primary={`${Math.floor(current.temp_c)}°`}
-                secondary={`Wind ${current.wind_kph} k/ph`}
-              />
-            </View>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentInsetAdjustmentBehavior="automatic"
+            >
+              <Hourly data={forecast.forecastday[0].hour} />
+              <Forecast data={forecast.forecastday} />
+              <Other current={current} forecast={forecast} />
+            </ScrollView>
           </SafeAreaView>
-        </ScrollView>
+        </ImageBackground>
       );
     }
   }
@@ -83,12 +67,8 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     paddingHorizontal: 10,
   },
-  containerDetails: {
-    flexDirection: "row",
-    gap: 10,
-    marginVertical: 20,
-    marginHorizontal: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
+  bg: {
+    width: "100%",
+    height: "100%",
   },
 });
