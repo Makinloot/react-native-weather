@@ -17,6 +17,8 @@ import Forecast from "./components/Forecast";
 import Other from "./components/Other";
 
 import background from "./background";
+import Error from "./components/Error";
+import Loading from "./components/Loading";
 
 export default function App() {
   const [latlon, setLatlon] = useState("tbilisi");
@@ -25,7 +27,9 @@ export default function App() {
     const url = `https://api.weatherapi.com/v1/forecast.json?key=${APP_ENV_API_KEY}&q=${latlon}&days=3&aqi=yes`;
     const [data, error, loading] = useFetch(url);
 
-    if (data.length !== 0) {
+    if(error) return <Error />
+    else if(loading) return <Loading />
+    else if(data.current){
       const { location, current, forecast } = data;
       const iconId = data.current.condition.icon.split("/")[6].split(".")[0];
       const dayTime = data.current.condition.icon.split("/")[5];
@@ -53,12 +57,6 @@ export default function App() {
       );
     }
   }
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text>No data</Text>
-    </SafeAreaView>
-  );
 }
 
 const styles = StyleSheet.create({
