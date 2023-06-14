@@ -15,17 +15,13 @@ import { APP_ENV_API_KEY } from "@env";
 import Hourly from "./components/Hourly";
 import Forecast from "./components/Forecast";
 import Other from "./components/Other";
-
+import * as Location from 'expo-location'
 import background from "./background";
 import Error from "./components/Error";
 import Loading from "./components/Loading";
 
 export default function App() {
-  const [latlon, setLatlon] = useState("tbilisi");
-
-  if (latlon) {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${APP_ENV_API_KEY}&q=${latlon}&days=3&aqi=yes`;
-    const [data, error, loading] = useFetch(url);
+  const [data, error, loading] = useFetch();
 
     if(error) return <Error />
     else if(loading) return <Loading />
@@ -56,7 +52,6 @@ export default function App() {
         </ImageBackground>
       );
     }
-  }
 }
 
 const styles = StyleSheet.create({
@@ -68,5 +63,6 @@ const styles = StyleSheet.create({
   bg: {
     width: "100%",
     height: "100%",
+    backgroundColor: '#000000'
   },
 });

@@ -36,21 +36,22 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   textLocation: {
-    fontSize: 24,
+    fontSize: 44,
     textTransform: "capitalize",
-    color: 'white'
+    color: 'white',
   },
   degreeContainer: {
     position: "relative",
     text: {
-      fontSize: 64,
+      fontSize: 100,
       fontWeight: "300",
       color: 'white'
     },
     degree: {
       position: "absolute",
-      right: -20,
+      right: -30,
       top: -7,
+      fontSize: 90,
     },
   },
   textCondition: {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     degree: {
       position: "absolute",
       right: -5,
-      color: 'white'
+      color: 'white',
     },
   },
 });
